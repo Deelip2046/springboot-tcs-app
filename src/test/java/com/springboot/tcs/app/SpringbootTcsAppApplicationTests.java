@@ -5,9 +5,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class SpringbootTcsAppApplicationTests {
-
+	
+	
 	@Test
-	void contextLoads() {
+	void ContextLoads() {
+		
 	}
 
 }

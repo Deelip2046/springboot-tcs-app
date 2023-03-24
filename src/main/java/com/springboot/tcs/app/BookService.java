@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BookService {
+
 	private Map<Long, Book> books = new HashMap<>();
 	private Long nextId = 1L;
 	
@@ -29,10 +30,15 @@ public class BookService {
 	}
 
 	public Book updateBook(Long id,Book book) {
-		book.setId(id);
-		books.put(id, book);
-		return book;
-	}
+		if (books.containsKey(id)) {
+			book.setId(id);
+			books.put(id, book);
+			return book;        
+        }
+        return null;
+    }
+
+	
 }
 	
 
