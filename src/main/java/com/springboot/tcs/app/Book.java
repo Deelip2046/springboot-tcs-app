@@ -1,11 +1,11 @@
 package com.springboot.tcs.app;
-
+@Entity
 public class Book {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String author;
-	
-
 	
 	public Book(Long id, String name, String author) {
 		super();

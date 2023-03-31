@@ -2,19 +2,28 @@ package com.springboot.tcs.app;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class BookServiceTest {
-	private BookService bookService= new BookService();
+	@Mock
+	private BookService bookRepository;
+	@InjectMocks
+	private BookService bookService;
 
 	@Test
 	public void addBookTest() {
 
 		Book book = new Book(1L,"Java","Hari");
+//		when(bookRepository.save(book)).thenReturn(new Book(1L, "Java","Hari"));
 		Book result = bookService.addBook(book);
         assertNotNull(result.getId());
 		assertEquals("Java", result.getName());
@@ -45,13 +54,15 @@ public class BookServiceTest {
 		
 	}
 	@Test
-	public void deleteBookTest() {
+	public  void deleteBookTest() {
 		Book book = new Book(1L, "Java", "Hari");
 		bookService.addBook(book);
-		Book result = bookService.deleteBook(1L);
-        assertNotNull(result);
-		assertEquals("Java", result.getName());
-		assertEquals("Hari", result.getAuthor());
+//		when(bookRepository).findById(1L).thenReturn(Optional.of(book));
+		Book deletedBook = bookService.deleteBook(1L);
+        assertNotNull(deletedBook);
+		assertEquals("Java", deletedBook.getName());
+		assertEquals("Hari", deletedBook.getAuthor());
+		assertNull(bookService.getBook(1L));
 	}
 	@Test
 	public void updateBookTest() {

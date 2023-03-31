@@ -1,43 +1,36 @@
 package com.springboot.tcs.app;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BookService {
+	@Autowired
+	private BookRepository bookRepository;
 
-	private Map<Long, Book> books = new HashMap<>();
-	private Long nextId = 1L;
-	
 	public Book addBook(Book book) {
-		book.setId(nextId++);
-		books.put(book.getId(), book);
-
-		return book;
+		return bookRepository.save(book);	
 	}
 	public Book getBook(Long id) {
-		return books.get(id);
+		return bookRepository.findById(id);
 	}
+	
 	public List<Book> getAllBooks(){
-		return new ArrayList<>(books.values());
+		return bookRepository.findAll();
 	}
-	public Book deleteBook(Long id) {
-		return books.remove(id);
+	public void deleteBook(Long id) {
+		bookRepository.deleteById(id);
 	}
-
-	public Book updateBook(Long id,Book book) {
-		if (books.containsKey(id)) {
+	public Book updateBook(Long id, Book book) {
+		if(bookRepository.existsById(id)) {
 			book.setId(id);
-			books.put(id, book);
-			return book;        
-        }
-        return null;
-    }
-
+			return bookRepository.save(book);
+		
+		}
+		return null;
+	}
 	
 }
 	
