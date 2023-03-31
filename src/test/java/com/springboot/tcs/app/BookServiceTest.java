@@ -16,7 +16,7 @@ public class BookServiceTest {
 
 		Book book = new Book(1L,"Java","Hari");
 		Book result = bookService.addBook(book);
-
+        assertNotNull(result.getId());
 		assertEquals("Java", result.getName());
 		assertEquals("Hari",result.getAuthor());
 		
@@ -26,6 +26,7 @@ public class BookServiceTest {
 		Book book = new Book(1L, "Java", "Hari");
 		bookService.addBook(book);
 		Book result = bookService.getBook(1L);
+		assertNotNull(result);
 		assertEquals("Java", result.getName());
 		assertEquals("Hari", result.getAuthor());
 		
@@ -36,8 +37,11 @@ public class BookServiceTest {
 		Book book2 = new Book(2L, "Python", "Dr. Dutta");
 		bookService.addBook(book1);
 		bookService.addBook(book2);
-		List<Book> books = bookService.getAllBooks();
-		assertEquals(2, books.size());
+		List<Book> allBooks = bookService.getAllBooks();
+		assertNotNull(allBooks);
+		assertEquals(2, allBooks.size());
+		assertEquals(book1,allBooks.get(0));
+		assertEquals(book2,allBooks.get(1));
 		
 	}
 	@Test
@@ -45,7 +49,7 @@ public class BookServiceTest {
 		Book book = new Book(1L, "Java", "Hari");
 		bookService.addBook(book);
 		Book result = bookService.deleteBook(1L);
-
+        assertNotNull(result);
 		assertEquals("Java", result.getName());
 		assertEquals("Hari", result.getAuthor());
 	}
@@ -55,6 +59,7 @@ public class BookServiceTest {
 		bookService.addBook(book);
 		Book updatedBook = new Book(1L, "Python", "Sagar");
 		Book result = bookService.updateBook(1L, updatedBook);
+		assertNotNull(result);
 		assertEquals("Python", result.getName());
 		assertEquals("Sagar", result.getAuthor());
 	}
