@@ -14,14 +14,15 @@ public class BookService {
 		return bookRepository.save(book);	
 	}
 	public Book getBook(Long id) {
-		return bookRepository.findById(id);
+		return bookRepository.findById(id).orElse(null);
 	}
 	
 	public List<Book> getAllBooks(){
 		return bookRepository.findAll();
 	}
-	public void deleteBook(Long id) {
+	public Book deleteBook(Long id) {
 		bookRepository.deleteById(id);
+		return deleteBook(null);
 	}
 	public Book updateBook(Long id, Book book) {
 		if(bookRepository.existsById(id)) {
