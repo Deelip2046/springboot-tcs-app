@@ -20,9 +20,9 @@ public class BookService {
 	public List<Book> getAllBooks(){
 		return bookRepository.findAll();
 	}
-	public Book deleteBook(Long id) {
+	public void deleteBook(Long id) {
 		bookRepository.deleteById(id);
-		return deleteBook(null);
+
 	}
 	public Book updateBook(Long id, Book book) {
 		if(bookRepository.existsById(id)) {

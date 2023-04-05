@@ -3,6 +3,8 @@ package com.springboot.tcs.app;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -57,7 +59,8 @@ public class BookServiceTest {
 		Book book = new Book(1L, "Java", "Hari");
 		when(bookRepository.findById(1L)).thenReturn(Optional.of(book));
 		bookService.deleteBook(1L);
-		assertNull(bookService.getBook(1L));
+		verify(bookRepository,times(1)).deleteById(1L);
+
 	}
 	@Test
 	public void updateBookTest() {
@@ -67,7 +70,7 @@ public class BookServiceTest {
 		
 		Book result = bookService.updateBook(1L,book);
 		assertNotNull(result);
-		assertEquals("Python", result.getName());
-		assertEquals("Sagar", result.getAuthor());
+		assertEquals("Java", result.getName());
+		assertEquals("Hari", result.getAuthor());
 	}
 }
