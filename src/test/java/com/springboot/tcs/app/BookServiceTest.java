@@ -67,7 +67,6 @@ public class BookServiceTest {
 		Book book = new Book(1L, "Java", "Hari");
 		when(bookRepository.existsById(1L)).thenReturn(true);
 		when(bookRepository.save(book)).thenReturn(book);
-		
 		Book result = bookService.updateBook(1L,book);
 		assertNotNull(result);
 		assertEquals("Java", result.getName());
