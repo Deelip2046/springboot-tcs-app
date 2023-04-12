@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private JwtUtil jwtUtil;
 	@PostMapping("/register")
 	public ResponseEntity<String> registerUser(@RequestBody User user){
 		try {
@@ -22,14 +24,13 @@ public class UserController {
 			return ResponseEntity.ok("Register Sucessful");
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body("Username or Password policy failed");
-		}
-			
+		}		
 		}
 	@PostMapping("/signin")
 	public ResponseEntity<Object> signinUser(@RequestBody User user){
 		try {
 			User authenticatedUser = userService.signinUser(user.getEmail(),user.getPassword());
-			String jwtToken ="";
+			String jwtToken =jwtUtil.generateToken(authenticatedUser);
 			Map<String, Object> response = new HashMap<>();
 			response.put("message", "Authentication sucessful");
 			response.put("token", jwtToken);
