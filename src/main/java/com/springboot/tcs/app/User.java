@@ -1,21 +1,30 @@
 package com.springboot.tcs.app;
 
+import javax.validation.constraints.Email;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
+import jakarta.validation.constraints.NotBlank;
+ 
 @Entity
 @Table(name="Users")
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	@NotBlank(message="First name is required")
 	private String firstName;
+	@NotBlank(message="Last name is required")
 	private String lastName;
+	@Email(message= "Invalid email address")
+	@NotBlank(message="Email is required")
 	private String email;
+	@NotBlank(message="Phone Number is required")
 	private String phoneNumber;
+	@NotBlank(message="Password is required")
 	private String password;
 	public User(){
 		
